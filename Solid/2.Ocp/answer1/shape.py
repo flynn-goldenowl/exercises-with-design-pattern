@@ -38,3 +38,13 @@ class Triangle(Shape):
 
     def calculate_area(self) -> float:
         return 0.5 * self.length**2
+
+
+class Square(Shape):
+    def __init__(self, length: float) -> None:
+        super().__init__()
+
+        self.length = length
+
+    def calculate_area(self) -> float:
+        return self.length**2

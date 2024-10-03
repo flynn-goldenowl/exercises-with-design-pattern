@@ -13,5 +13,5 @@ class Library:
         self.collection.add_book(book)
 
     def remove(self, key: str, value: str | int) -> None:
-        books_to_remove = self.search_by(key, value)
+        books_to_remove = self.search(key, value)
         self.collection.remove_book(books_to_remove)

@@ -1,26 +1,41 @@
-from enum import Enum, auto
+from abc import ABC, abstractmethod
 
 
-class EmployeeType(Enum):
-    FullTime = auto()
-    PartTime = auto()
-    Intern = auto()
-
-
-EmployeeSalary = {
-    EmployeeType.FullTime: 5000,
-    EmployeeType.PartTime: 3000,
-    EmployeeType.Intern: 1000,
-}
-
-
-class Employee:
-    def __init__(self, name: str, type: EmployeeType) -> None:
+class Employee(ABC):
+    def __init__(self, name: str) -> None:
         self.name = name
-        self.type = type
 
-    def calulate_salary(self) -> int:
-        try:
-            return EmployeeSalary[self.type]
-        except KeyError:
-            print("Unknown employee type")
+    @abstractmethod
+    def calculate_salary(self) -> int:
+        raise NotImplementedError
+
+
+class FullTime(Employee):
+    def __init__(self, name: str) -> None:
+        super().__init__(name)
+
+    def calculate_salary(self) -> int:
+        return 5000
+
+
+class PartTime(Employee):
+    def __init__(self, name: str) -> None:
+        super().__init__(name)
+
+    def calculate_salary(self) -> int:
+        return 3000
+
+class Intern(Employee):
+    def __init__(self, name: str) -> None:
+        super().__init__(name)
+
+    def calculate_salary(self) -> int:
+        return 1000
+
+class Freelancer(Employee):
+    def __init__(self, name: str, working_time: int) -> None:
+        super().__init__(name)
+        self.working_time = working_time
+
+    def calculate_salary(self) -> int:
+        return 40 * self.working_time
